@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
       <Router><Switch><Route path='/' exact><Home/></Route>
-      <Route path='/form' exact><Form/></Route>
+      <Route path='/form/:input_id?' exact><Form/></Route> {/* ? includes form/ and form/input:id */}
       <Route path='/movements' exact><Movements/></Route>
       </Switch></Router>
     </div>
