@@ -64,13 +64,25 @@ function Form(){
                 }).catch(e=>console.log(e))}
     }
 
-    /*function show_form(event){
-        var element = document.getElementById('type_expense');
-        element.style.display = 'block';
-    }*/
+    function Input_expense(){
+        var expense_select = document.getElementById("expense_id");
+        console.log("Entre");
+        if (expense_select.value == "Expense"){
+            return(<div className="form-group" id="type_expense" style={{display: 'none'}}>
+            <label htmlFor="type_expense">Tipo de gasto:</label>
+                <select disabled={(input_id)} type="text" name="type_expense"  className="form-control" value={type_expense} onChange={(e)=>{setType_expense(e.target.value)}}>
+                         <option value="Food" >Comida</option>
+                        <option value="Living">Vivienda</option>
+                        <option value="Transport">Transporte</option>
+                        <option value="Recreation">Recreación</option>
+                        <option value="Other">Otro</option>
+                </select>
+        </div>) 
+        }  
+    }
 
     return (
-
+        
         <div className= "w-100">
 
             {/* Sidebar */}
@@ -117,21 +129,12 @@ function Form(){
                         </div>
                         <div className="form-group">
                                 <label htmlFor="input_type">Tipo:</label>
-                                <select disabled={(input_id)} type="text" name="input_type" id="input_type" required className="form-control" value={input_type} onChange={(e)=>{setInput_type(e.target.value)}}>
-                                    <option value="Income" >Ingreso</option>
-                                    <option value="Expense" id="expenseId">Gasto</option>
+                                <select disabled={(input_id)}  id="expense_id" type="text" name="input_type" id="input_type" required className="form-control" value={input_type} onChange={(e)=>{setInput_type(e.target.value)}}>
+                                    <option value="Income">Ingreso</option>
+                                    <option value="Expense" onChange={Input_expense}>Gasto</option>
                                 </select>
                         </div>
-                        <div className="form-group" id="type_expense" >
-                                <label htmlFor="type_expense">Tipo de gasto:</label>
-                                <select disabled={(input_id)} type="text" name="type_expense"  className="form-control" value={type_expense} onChange={(e)=>{setType_expense(e.target.value)}}>
-                                                <option value="Food" >Comida</option>
-                                                <option value="Living">Vivienda</option>
-                                                <option value="Transport">Transporte</option>
-                                                <option value="Recreation">Recreación</option>
-                                                <option value="Other">Otro</option>
-                                </select>
-                        </div>
+                        {Input_expense}
                         <div className="form-group">
                             <button type="submit" className="btn btn-primary btn-block" id="submit_button" value="Submit">Aceptar</button>
                         </div >    

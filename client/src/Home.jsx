@@ -30,7 +30,29 @@ class Home extends Component {
         })
     }
 
+
     render() {
+        function Value_type_expense(data){
+            var value = data;
+            switch(value){
+                case 'Food': 
+                    value = 'Comida';
+                    break;
+                case 'Living': 
+                    value = 'Vivienda';
+                    break;
+               case 'Transport':
+                    value = 'Transporte';
+                    break;
+               case 'Recreation':
+                    value = 'Recreación';
+                    break;
+               case 'Other':
+                    value = 'Otro';
+                    break;
+                default: value = '-'}
+            return (value)}
+
         return (
 
         <div className= "w-100">
@@ -99,7 +121,7 @@ class Home extends Component {
                                                             {aMovement.input_type=="Income"?"Ingreso":"Gasto"}
                                                         </td>
                                                         <td>
-                                                            {aMovement.type_expense}
+                                                            {Value_type_expense(aMovement.type_expense)}
                                                         </td>
                                                 </tr>
                                                         )

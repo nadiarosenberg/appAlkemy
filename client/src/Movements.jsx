@@ -27,12 +27,6 @@ class Movements extends Component {
     componentDidMount() {
         this.fetchMovements();
     }
-    componentDidUpdate(_,prevState){
-        if (prevState.input_type != this.state.input_type){//if imput_type changes
-            this.fetchMovements();
-        }
-    }
-
 
     //Filter by type of expense
     fetchTypeExpense(){
@@ -47,7 +41,34 @@ class Movements extends Component {
         .catch(console.log)
     }
 
+    componentDidUpdate(_,prevState){
+        if (prevState.type_expense != this.state.type_expense){//if type_expense changes
+            this.fetchTypeExpense();}
+    }
+
+
     render() {
+        function Value_type_expense(data){
+            var value = data;
+            switch(value){
+                case 'Food': 
+                    value = 'Comida';
+                    break;
+                case 'Living': 
+                    value = 'Vivienda';
+                    break;
+               case 'Transport':
+                    value = 'Transporte';
+                    break;
+               case 'Recreation':
+                    value = 'Recreación';
+                    break;
+               case 'Other':
+                    value = 'Otro';
+                    break;
+                default: value = '-'}
+            return (value)}
+
         return (
         <div className= "w-100">
             {/* Sidebar */}
@@ -99,13 +120,13 @@ class Movements extends Component {
                         <div className="col-6">
                             <form action="/movements/api/" method="get">
                                 <div className="input-group">
-                                    <label htmlFor="type_expense" className="input_select">Ver:</label>
+                                    <label htmlFor="type_expense" className="input_select">Tipo de gasto:</label>
                                     <select className="form-control" id="type_expense" name="type_expense" value={this.state.type_expense} onChange={(e)=>{this.setState({type_expense: e.target.value})}}>
                                         <option value="All_expenses">Todos</option>
                                         <option value="Food">Comida</option>
                                         <option value="Living">Vivienda</option>
                                         <option value="Transport">Transporte</option>
-                                        <option value="Recreation">Recreación</option>
+                                        <option value="Recreation">Recreacion</option>
                                         <option value="Other">Otro</option>
                                     </select>
                                 </div>
@@ -114,6 +135,7 @@ class Movements extends Component {
                     </div>
                 </div>
 
+                {/* List of movements */}
                     <div className="row justify-content-center" id="table_movements">     
                     <div className="col-9">
                         <table className="table table-borderless table table-hover">
@@ -146,7 +168,7 @@ class Movements extends Component {
                                         {aMovement.input_type=="Income"?"Ingreso":"Gasto"}
                                     </td>
                                     <td>
-                                        {aMovement.type_expense}
+                                        {Value_type_expense(aMovement.type_expense)}
                                     </td>
 
                                     <td>

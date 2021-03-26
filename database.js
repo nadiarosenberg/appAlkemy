@@ -30,17 +30,17 @@ con.query(sql, function (err, result) {
 
 //Valores de prueba
 const items = [
-    {concept: 'Deuda', amount: 1000, input_date: '2021-03-17', input_type: 'Expense', type_expense: 'Comida'},
-    {concept: 'Cobro', amount: 1000, input_date: '2021-03-17', input_type: 'Expense', type_expense: 'Vivienda'},
-    {concept: '1Gas', amount: 1000, input_date: '2021-03-18', input_type: 'Expense', type_expense: 'Comida'},
-    {concept: '2Luz', amount: 2000, input_date: '2021-03-18', input_type: 'Expense', type_expense: 'Vivienda'},
-    {concept: '3internet', amount: 1000, input_date: '2021-03-18', input_type: 'Expense', type_expense: 'Transporte'},
+    {concept: 'Deuda', amount: 1000, input_date: '2021-03-17', input_type: 'Expense', type_expense: 'Food'},
+    {concept: 'Cobro', amount: 1000, input_date: '2021-03-17', input_type: 'Expense', type_expense: 'Living'},
+    {concept: '1Gas', amount: 1000, input_date: '2021-03-18', input_type: 'Expense', type_expense: 'Food'},
+    {concept: '2Luz', amount: 2000, input_date: '2021-03-18', input_type: 'Expense', type_expense: 'Living'},
+    {concept: '3internet', amount: 1000, input_date: '2021-03-18', input_type: 'Expense', type_expense: 'Transport'},
     {concept: '4Cobro', amount: 2000, input_date: '2021-03-19', input_type: 'Income'},
     {concept: '5Cobro', amount: 1000, input_date: '2021-03-19', input_type: 'Income'},
-    {concept: '6Supermercado', amount: 2000, input_date: '2021-03-19', input_type: 'Expense', type_expense: 'Transporte'},
-    {concept: '7Verduleria', amount: 1000, input_date: '2021-03-20', input_type: 'Expense', type_expense: 'Recreación'},
-    {concept: '8Impuestos', amount: 2000, input_date: '2021-03-20', input_type: 'Expense', type_expense: 'Recreación'},
-    {concept: '9Alquiler', amount: 1000, input_date: '2021-03-20', input_type: 'Expense', type_expense: 'Otro'},
+    {concept: '6Supermercado', amount: 2000, input_date: '2021-03-19', input_type: 'Expense', type_expense: 'Transport'},
+    {concept: '7Verduleria', amount: 1000, input_date: '2021-03-20', input_type: 'Expense', type_expense: 'Recreation'},
+    {concept: '8Impuestos', amount: 2000, input_date: '2021-03-20', input_type: 'Expense', type_expense: 'Recreation'},
+    {concept: '9Alquiler', amount: 1000, input_date: '2021-03-20', input_type: 'Expense', type_expense: 'Other'},
     {concept: '10Regalo', amount: 2000, input_date: '2021-03-20', input_type: 'Income'},
 ];
 con.query(

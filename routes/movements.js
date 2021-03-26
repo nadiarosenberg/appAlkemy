@@ -35,7 +35,7 @@ router.get('/api/list/', function(req,res, next){
 });
 
 /*------------------------------ MOVEMENTS PAGE -------------------------*/
-/*GET list */
+/*GET complete list */
 router.get('/api/', function(req,res, next){
       con.query('SELECT * FROM inputs ORDER BY input_date DESC', function(err, rows, fields){
           if(err){
@@ -120,7 +120,7 @@ router.get('/api/filter/subfilter/:type_expense', function(req,res, next){
             }
          });
       }else{
-         con.query('SELECT * FROM inputs WHERE input_type="Expense", type_expense=? ORDER BY input_id DESC', [type_expense], function(err, rows, fields){
+         con.query('SELECT * FROM inputs WHERE type_expense=? ORDER BY input_id DESC', [type_expense], function(err, rows, fields){
           if(err){
              console.log('Error getting type of expense');
           }else{
