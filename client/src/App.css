@@ -1,38 +1,180 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;400&display=swap');
+
+/*Root */
+:root{
+  --primary: #111B54;
+  --light: #E7E6DA;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/*Body */
+body{
+  font-family: 'Nunito', sans-serif;
+  font-weight: 400;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.w-100{
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  width: 100%;
+}
+
+.nav_bar{
+  width: 20vw;
+}
+
+.content{
+  width: 80vw;
+  height: 100%;
+}
+
+.user_barr{
+  text-align: right;
+  background-color: #E7E6DA;
+  margin-bottom: 2rem;
+  padding: 0.5rem;
+  width: 100%;
+}
+
+/*Sidebar */
+#sidebar-container {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: var(--primary);
+}
+
+.logo {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  font-size: 1.7rem;
+  background-color: transparent;
+  text-align: left;
+  padding-left: 1.2rem;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 400;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.menu {
+  list-style-type: none;
+  position: relative;
+  width: 100%;
+  background-color: transparent;
+  height: 100vh;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.menu li{
+  background-color: transparent;
+  position: relative;
+  padding: 5% 2% 5% 2%;
+  margin-left: -35px;
+}
+
+.menu li a{
+  text-decoration: none;
+  font-size: 1.2rem;
+  padding-left: 1.1rem;
+  justify-content: center;
+  color: white;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 200;
+}
+
+.menu li:hover{
+  background-color: rgba(0,0,0,0.2);
+}
+
+/* Home */
+#welcome{
+  display: flex;
+  width: 50%;
+  margin: auto;
+}
+
+.welcome_message{
+  margin: auto;
+  font-size: 2.5rem;
+  text-align: left;
+}
+
+.div_balance{
+  text-align: center;
+  width: contain;
+  margin: auto;
+  border-radius: 0.2rem;
+  border: 1px solid rgba(145,139,118,0.29);
+  padding: 1rem 1.5rem 1rem 1.5rem;
+}
+
+.div_balance h2{
+  font-size: 1.5rem;
+}
+
+.div_balance .number_balance{
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+/* Table Home */
+.table_div{
+  display: flex;
+}
+
+.h2_title{
+  text-align: center;
+  font-size: 1.5rem;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+}
+
+/* Form */
+.form-group{
+  margin-top: 1rem;
+  text-align: center;
+  justify-content: center;
+  margin-bottom: 5%;
+}
+
+#submit_button{
+  background-color: var(--primary);
+  font-size: 1.2rem;
+  justify-content: center;
+  padding: 0.5rem;
+}
+
+.form-group label{
+    font-size: 1.2rem;
+}
+
+.form-group input{
+    font-size: 1.1rem;
+}
+
+.form-group select{
+    font-size: 1.1rem;
+}
+
+/* Movements */
+#button_movements{
+  background-color: transparent;
+  padding: 0;
+  border: none;
+  color: var(--primary);
+}
+
+.h2_movements{
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+#select_movement{
+  margin-bottom: 1rem;
+}
+
+#table_movements{
+  margin-top: 2rem;
+}
+
+.input_select{
+  margin-right: 2rem;
+  justify-content: center;
 }

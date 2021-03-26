@@ -70,54 +70,77 @@ function Form(){
     }*/
 
     return (
-    <div>
-        {/* Form */}
-        <div className="container">
-        <div className="row justify-content-center">
-        <div className="col-6">
-        <form onSubmit={submitForm}>
-                <div className="form-group">
-                        <label htmlFor="concept">Concepto:</label>
-                        <input type="text" name="concept" id="concept" className="form-control" value={concept}  onChange={(e)=>{setConcept(e.target.value)}}/>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="amount">Valor:</label>
-                            <div className="input-group">
-                                <span className="input-group-text">$</span>
-                                <input type="number" name="amount" id="amount" required value={amount} className="form-control"  onChange={(e)=>{setAmount(e.target.value)}}/>
-                            </div>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="input_date">Fecha:</label>
-                        <input type="date" name="input_date" id="input_date" required className="form-control" value={input_date} onChange={(e)=>{setInput_date(e.target.value)}}/>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="input_type">Tipo:</label>
-                        <select disabled={(input_id)} type="text" name="input_type" id="input_type" required className="form-control" value={input_type} onChange={(e)=>{setInput_type(e.target.value)}}>
-                            <option value="Income" >Ingreso</option>
-                            <option value="Expense" id="expenseId">Gasto</option>
-                        </select>
-                    </div>
-                     <div className="form-group" id="type_expense" >
-                        <label htmlFor="type_expense">Tipo de gasto:</label>
-                        <select disabled={(input_id)} type="text" name="type_expense"  className="form-control" value={type_expense} onChange={(e)=>{setType_expense(e.target.value)}}>
-                                        <option value="Food" >Comida</option>
-                                        <option value="Living">Vivienda</option>
-                                        <option value="Transport">Transporte</option>
-                                        <option value="Recreation">Recreación</option>
-                                        <option value="Other">Otro</option>
-                        </select>
-                    </div>
 
-                    <button type="submit" className="btn btn-primary btn-block" value="Submit">Aceptar</button>
-        </form>
-        </div>
-        </div>
-        </div>
+        <div className= "w-100">
 
-        {/* Back Home */}
-        <Link to= "/"><button type="button" className="btn btn-primary btn-block" >Volver a Home</button></Link>
+            {/* Sidebar */}
+            <div className="nav_bar">
+                <div id="sidebar-container">
+                    <div className="logo">Mis finanzas</div>
+                    <ul className="menu">
+                        <li>
+                            <Link to="/" className = "d-block"><i className="icon ion-md-home lead"></i>Home</Link>
+                        </li>
+                        <li>
+                            <Link to="/form" className = "d-block"><i className="icon ion-md-add lead"></i>Ingresar movimiento</Link>
+                        </li>
+                        <li>
+                            <Link to="/movements" className = "d-block"><i className="icon ion-md-wallet lead"></i>Ver movimientos</Link>
+                        </li>
+                    </ul>
+                </div>
+                </div>
+            <div>
+            {/* Page Content */}
+            <div className="content">
+                <div className="user_barr"><i className="icon ion-md-person lead"></i>  Usuario</div>
 
+                {/* Form */}
+                <div className="container">
+                <div className="row justify-content-center">
+                <div className="col-6">
+                <form onSubmit={submitForm}>
+                        <div className="form-group">
+                                <label htmlFor="concept">Concepto:</label>
+                                <input type="text" name="concept" id="concept" className="form-control" value={concept}  onChange={(e)=>{setConcept(e.target.value)}}/>
+                        </div>
+                        <div className="form-group">
+                                <label htmlFor="amount">Valor:</label>
+                                    <div className="input-group">
+                                        <span className="input-group-text">$</span>
+                                        <input type="number" name="amount" id="amount" required min="1" value={amount} className="form-control"  onChange={(e)=>{setAmount(e.target.value)}}/>
+                                    </div>
+                        </div>
+                        <div className="form-group">
+                                <label htmlFor="input_date">Fecha:</label>
+                                <input type="date" name="input_date" id="input_date" required className="form-control" value={input_date} onChange={(e)=>{setInput_date(e.target.value)}}/>
+                        </div>
+                        <div className="form-group">
+                                <label htmlFor="input_type">Tipo:</label>
+                                <select disabled={(input_id)} type="text" name="input_type" id="input_type" required className="form-control" value={input_type} onChange={(e)=>{setInput_type(e.target.value)}}>
+                                    <option value="Income" >Ingreso</option>
+                                    <option value="Expense" id="expenseId">Gasto</option>
+                                </select>
+                        </div>
+                        <div className="form-group" id="type_expense" >
+                                <label htmlFor="type_expense">Tipo de gasto:</label>
+                                <select disabled={(input_id)} type="text" name="type_expense"  className="form-control" value={type_expense} onChange={(e)=>{setType_expense(e.target.value)}}>
+                                                <option value="Food" >Comida</option>
+                                                <option value="Living">Vivienda</option>
+                                                <option value="Transport">Transporte</option>
+                                                <option value="Recreation">Recreación</option>
+                                                <option value="Other">Otro</option>
+                                </select>
+                        </div>
+                        <div className="form-group">
+                            <button type="submit" className="btn btn-primary btn-block" id="submit_button" value="Submit">Aceptar</button>
+                        </div >    
+                </form>
+                </div>
+                </div>
+                </div>
+            </div>
+        </div>
     </div>)
 };
 
