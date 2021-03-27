@@ -44,14 +44,13 @@ class Movements extends Component {
     componentDidUpdate(_,prevState){
         if (prevState.type_expense != this.state.type_expense){//if type_expense changes
             this.fetchTypeExpense();}
-        if (prevState.input_type != this.state.input_type){//if type_expense changes
+        if (prevState.input_type != this.state.input_type){//if input_type changes
             this.fetchMovements();}
     }
 
     onChangeType(value){
         this.setState({input_type:value});
     }
-
 
     render() {
         function Value_type_expense(data){
@@ -76,9 +75,10 @@ class Movements extends Component {
             return (value)}
 
         return (
+
         <div className= "w-100">
             {/* Sidebar */}
-            <div className="nav_bar">
+            <div className="nav_bar" id="menu">
                 <div id="sidebar-container">
                     <div className="logo">Mis finanzas</div>
                     <ul className="menu">
@@ -93,8 +93,8 @@ class Movements extends Component {
                         </li>
                     </ul>
                 </div>
-             </div>
-            <div>
+            </div>
+
             {/* Page Content */}
             <div className="content">
                 <div className="user_barr"><i className="icon ion-md-person lead"></i>  Usuario</div>
@@ -140,7 +140,6 @@ class Movements extends Component {
                         </div>
                     </div>
                 </div>
-
                 {/* List of movements */}
                     <div className="row justify-content-center" id="table_movements">     
                     <div className="col-9">
@@ -200,10 +199,7 @@ class Movements extends Component {
                             </table>
                     </div>
                     </div>
-            </div>
-            </div>                  
+            </div>                 
             </div>)};
 } 
-
-
 export default Movements

@@ -57,7 +57,7 @@ class Home extends Component {
 
         <div className= "w-100">
             {/* Sidebar */}
-            <div className="nav_bar">
+            <div className="nav_bar" id="menu">
                 <div id="sidebar-container">
                     <div className="logo">Mis finanzas</div>
                     <ul className="menu">

@@ -69,22 +69,23 @@ function Form(){
         <div className= "w-100">
 
             {/* Sidebar */}
-            <div className="nav_bar">
+            <div className="nav_bar" id="menu">
                 <div id="sidebar-container">
                     <div className="logo">Mis finanzas</div>
                     <ul className="menu">
                         <li>
-                            <Link to="/" className = "d-block"><i className="icon ion-md-home lead"></i>Home</Link>
+                            <Link to="/" className = "d-block"><i className="icon ion-md-home lead"></i>  Home</Link>
                         </li>
                         <li>
-                            <Link to="/form" className = "d-block"><i className="icon ion-md-add lead"></i>Ingresar movimiento</Link>
+                            <Link to="/form" className = "d-block"><i className="icon ion-md-add lead"></i>  Ingresar movimiento</Link>
                         </li>
                         <li>
-                            <Link to="/movements" className = "d-block"><i className="icon ion-md-wallet lead"></i>Ver movimientos</Link>
+                            <Link to="/movements" className = "d-block"><i className="icon ion-md-wallet lead"></i>  Ver movimientos</Link>
                         </li>
                     </ul>
                 </div>
             </div>
+
             {/* Page Content */}
             <div className="content">
                 <div className="user_barr"><i className="icon ion-md-person lead"></i>  Usuario</div>
@@ -134,8 +135,6 @@ function Form(){
                 </div>
                 </div>
             </div>
-
-{/* Cierre de la funcion */}
         </div>)
 };
 
