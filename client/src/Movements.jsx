@@ -44,6 +44,12 @@ class Movements extends Component {
     componentDidUpdate(_,prevState){
         if (prevState.type_expense != this.state.type_expense){//if type_expense changes
             this.fetchTypeExpense();}
+        if (prevState.input_type != this.state.input_type){//if type_expense changes
+            this.fetchMovements();}
+    }
+
+    onChangeType(value){
+        this.setState({input_type:value});
     }
 
 
@@ -103,7 +109,7 @@ class Movements extends Component {
                             <form action="/movements/api/" method="get">
                                 <div className="input-group" id="select_movement">
                                     <label htmlFor="type" className="input_select">Ver:</label>
-                                    <select className="form-control" id="type" name="type" value={this.state.input_type} onChange={(e)=>{this.setState({input_type: e.target.value})}}>
+                                    <select className="form-control" id="type" name="type" value={this.state.input_type} onChange={(e)=>{this.onChangeType(e.target.value)}}>
                                         <option value="All">Todos</option>
                                         <option value="Income">Ingresos</option>
                                         <option value="Expense">Gastos</option>
@@ -115,7 +121,7 @@ class Movements extends Component {
                 </div>
 
                 {/* Order by type of expense */}
-                <div className="container">
+                <div className="container"style={{ display: this.state.input_type=="Income" ? "none": "block" }}>
                     <div className="row justify-content-center">
                         <div className="col-6">
                             <form action="/movements/api/" method="get">
