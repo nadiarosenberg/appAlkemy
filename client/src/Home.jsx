@@ -54,7 +54,6 @@ class Home extends Component {
             return (value)}
 
         return (
-
         <div className= "w-100">
             {/* Sidebar */}
             <div className="nav_bar" id="menu">
@@ -73,7 +72,6 @@ class Home extends Component {
                     </ul>
                 </div>
             </div>
-
            {/* Page Content */}
             <div className="content">
                             <div className="user_barr"><i className="icon ion-md-person lead"></i>  Usuario</div>
@@ -85,13 +83,12 @@ class Home extends Component {
                                         <h2 className="number_balance">${this.state.balance}</h2>
                                 </div>
                             </div>
-
                                 {/* Last 10 movements */}
                                 <div clasName = "tablediv">
                                     <h2 className="h2_title">Ultimos movimientos</h2>
                                         <div className="row justify-content-center">     
                                         <div className="col-8">
-                                            <table className="table table-borderless table table-hover">
+                                            <table id="table" className="table table-borderless table table-hover">
                                                 <thead>
                                                     <tr>
                                                         <th scope="col">Fecha</th>
@@ -133,7 +130,6 @@ class Home extends Component {
                                         </div>
                                 </div>
             </div>
-{/* Cierre de la funcion */}
         </div>)
 }}
 

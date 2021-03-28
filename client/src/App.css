@@ -18,8 +18,9 @@ body{
 
 .w-100{
   display: flex;
-  width: 100vw;
+  width: 100%;
 }
+
 
 .nav_bar{
   width: 22%;
@@ -36,7 +37,7 @@ body{
   margin-bottom: 2rem;
   padding: 0.5rem;
   width: 100%;
-}
+  }
 
 /*-----------------------------------------Sidebar --------------------*/
   #sidebar-container {
