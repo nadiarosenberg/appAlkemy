@@ -3,10 +3,10 @@
 /**
  * Module dependencies.
  */
-
-var app = require('../app');
+const config = require('../config/config');
+const app = require('../app');
 var debug = require('debug')('aplication:server');
-var http = require('http');
+const http = require('http');
 
 /**
  * Get port from environment and store in Express.
@@ -87,4 +87,5 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
+  console.log(`server running on port ${addr.port}`);
 }

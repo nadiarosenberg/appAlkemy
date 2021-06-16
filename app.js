@@ -9,7 +9,6 @@ var bodyParser = require("body-parser");
 
 //Routes
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 const formRouter = require('./routes/form');
 const movementsRouter = require('./routes/movements');
 const { rootCertificates } = require('tls');
@@ -29,7 +28,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //Endpoints
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/form', formRouter);
 app.use('/movements', movementsRouter);
 

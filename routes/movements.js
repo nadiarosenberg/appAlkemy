@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
-const con = require('../database');
+const con = require('../config/database');
 const bodyParser = require('body-parser');
 
 /* GET page */
