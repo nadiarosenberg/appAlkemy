@@ -1,5 +1,6 @@
 import {Link} from 'react-router-dom';
 import React, {useState, useEffect} from 'react';
+import SideBar from '../Components/SideBar';
 import Axios from 'axios';
 import {useParams, useHistory} from 'react-router';
 
@@ -65,27 +66,8 @@ function Form(){
     }
 
     return (
-        
         <div className= "w-100">
-
-            {/* Sidebar */}
-            <div className="nav_bar" id="menu">
-                <div id="sidebar-container">
-                    <div className="logo">Mis finanzas</div>
-                    <ul className="menu">
-                        <li>
-                            <Link to="/" className = "d-block"><i className="icon ion-md-home lead"></i>  Home</Link>
-                        </li>
-                        <li>
-                            <Link to="/form" className = "d-block"><i className="icon ion-md-add lead"></i>  Ingresar movimiento</Link>
-                        </li>
-                        <li>
-                            <Link to="/movements" className = "d-block"><i className="icon ion-md-wallet lead"></i>  Ver movimientos</Link>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
+            <SideBar />
             {/* Page Content */}
             <div className="content">
                 <div className="user_barr"><i className="icon ion-md-person lead"></i>  Usuario</div>

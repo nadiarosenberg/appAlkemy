@@ -1,8 +1,9 @@
 import './App.css';
 import {BrowserRouter as Router, Switch, Route,Link} from 'react-router-dom';
-import Home from './Home';
-import Form from './Form';
-import Movements from './Movements';
+import Home from './Components/Home';
+import Form from './Components/Form';
+import Movements from './Components/Movements';
+import SideBar from './Components/SideBar';
 
 function App() {
   return (
