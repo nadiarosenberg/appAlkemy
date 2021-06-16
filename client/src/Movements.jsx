@@ -179,7 +179,7 @@ class Movements extends Component {
                                     <td>
                                     {/* Delete item */}
                                         <button type="image" src="client\src\images\trash-outline.svg" className="btn btn-primary btn-block" id="button_movements" onClick={()=>{
-                                            fetch(`/movements/api/${aMovement.input_id}`,{method:'DELETE'}).then(()=>{
+                                            fetch(`/movements/api/${aMovement.id}`,{method:'DELETE'}).then(()=>{
                                                 fetch('/movements/api').then((result)=>result.json()).then((json)=>{
                                                     console.log({json});
                                                     this.setState({...this.state,movementsList:json}); //mantiene lo que habia en estado y actualiza la lista con lo que elimine
@@ -190,7 +190,7 @@ class Movements extends Component {
 
                                     <td>
                                     {/* Edit item */}
-                                        <Link to={`/form/${aMovement.input_id}`}><button type="button" className="btn btn-primary btn-block" id="button_movements"><i className="fa fa-pencil"></i></button></Link>
+                                        <Link to={`/form/${aMovement.id}`}><button type="button" className="btn btn-primary btn-block" id="button_movements"><i className="fa fa-pencil"></i></button></Link>
                                     </td>
                             </tr>
                             )

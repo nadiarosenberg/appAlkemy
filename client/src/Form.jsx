@@ -12,11 +12,11 @@ function Form(){
     const [type_expense, setType_expense] = useState('Comida'); //default value
 
     //Edit input
-    const {input_id} = useParams();
+    const {id} = useParams();
     const history = useHistory(); 
     useEffect(()=>{
-        if (input_id && input_id.length){
-            Axios.get(`/movements/api/${input_id}`).then((response)=>{
+        if (id && id.length){
+            Axios.get(`/movements/api/${id}`).then((response)=>{
                     console.log(response);
                     if (response.data.length){
                         const [value] = response.data; 
@@ -29,13 +29,13 @@ function Form(){
             }
             )
         }
-    },[input_id])
+    },[id])
 
     //Submit 
     const submitForm = (e)=>{
         e.preventDefault(); //no refresh
-        if (input_id){
-            Axios.put(`/movements/api/${input_id}`,{
+        if (id){
+            Axios.put(`/movements/api/${id}`,{
                 concept: concept,
                 amount: amount,
                 input_date: input_date,
@@ -112,14 +112,14 @@ function Form(){
                         </div>
                         <div className="form-group">
                                 <label htmlFor="input_type">Tipo:</label>
-                                <select value={input_type} onChange={(e)=>{setInput_type(e.target.value) }}  disabled={(input_id)} type="text" name="input_type" id="input_type" required className="form-control">
+                                <select value={input_type} onChange={(e)=>{setInput_type(e.target.value) }}  disabled={(id)} type="text" name="input_type" id="input_type" required className="form-control">
                                     <option value="Income">Ingreso</option>
                                     <option value="Expense" >Gasto</option>
                                 </select>
                         </div>
                         <div className="form-group" id="type_expense" style={{ display: input_type=="Income" ? "none": "block" }}>
                             <label htmlFor="type_expense">Tipo de gasto:</label>
-                                <select disabled={(input_id)} type="text" name="type_expense"  className="form-control" value={type_expense} onChange={(e)=>{setType_expense(e.target.value)}}>
+                                <select disabled={(id)} type="text" name="type_expense"  className="form-control" value={type_expense} onChange={(e)=>{setType_expense(e.target.value)}}>
                                         <option value="Food" >Comida</option>
                                         <option value="Living">Vivienda</option>
                                         <option value="Transport">Transporte</option>

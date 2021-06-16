@@ -4,148 +4,151 @@ var mysql = require('mysql');
 const con = require('../config/database');
 const bodyParser = require('body-parser');
 
-/* GET page */
-router.get('/', function(req, res, next) {
-   res.render('movements', { title: 'Movimientos:' });  
+router.post('/', (req,res,next)=>{
+   const data ={
+      concept: req.body.concept,
+      amount: req.body.amount,
+      input_date: req.body.input_date,
+      input_type: req.body.input_type,
+      type_expense: req.body.type_expense
+   }
+   var sql = "INSERT INTO inputs(concept,amount,input_date, input_type, type_expense) VALUES (?,?,?,?,?)";
+   con.query(sql, [data.concept, data.amount, data.input_date, data.input_type, data.type_expense], (err, result)=>{
+      if (err){
+         console.log(err);
+         res.status(500).json({message: 'Something wrong happened'})
+      }else{
+         res.status(200).json({message: 'Movement successfully created'})
+      }
+   });
 });
 
-
-/*-------------------------------- HOME PAGE -----------------------------*/
-/*GET Balance */
-router.get('/api/balance/', function(req,res, next){
+router.get('/balance', function(req,res, next){
    con.query('SELECT ((SELECT SUM(amount) AS incomes FROM inputs WHERE input_type = "Income")-(SELECT SUM(amount) AS expenses FROM inputs WHERE input_type = "Expense")) AS balance', function(err, rows, fields){
-          if(err){
-             console.log('Error getting balance');
-             res.json(JSON.stringify(err));
-          }else{
-             res.json(rows[0]);
-          }
-      });
+      if (err){
+         console.log(err)
+         res.status(500).json({message: 'Error getting balance'})
+      }else{
+         res.status(200).json(rows[0])
+      }
+   });
 });
 
-/*GET last 10 movements */
-router.get('/api/list/', function(req,res, next){
-      con.query('SELECT * FROM inputs ORDER BY input_date DESC LIMIT 10', function(err, rows, fields){
-          if(err){
-             console.log('Error getting last 10 movements ');
-          }else{
-             res.json(rows);
-          }
-      });
+router.get('/list', function(req,res, next){
+   con.query('SELECT * FROM inputs ORDER BY input_date DESC LIMIT 10', function(err, rows, fields){
+      if (err){
+         console.log(err);
+         res.status(500).json({message: 'Error getting last 10 movements'})
+      }else{
+        res.status(200).json(rows) 
+      }
+   });
 });
 
-/*------------------------------ MOVEMENTS PAGE -------------------------*/
-/*GET complete list */
-router.get('/api/', function(req,res, next){
-      con.query('SELECT * FROM inputs ORDER BY input_date DESC', function(err, rows, fields){
-          if(err){
-             console.log('Error getting list');
-          }else{
-             res.json(rows);
-          }
-      });
+router.get('/', function(req,res, next){
+   con.query('SELECT * FROM inputs ORDER BY input_date DESC', function(err, rows, fields){
+      if (err){
+         console.log(err);
+         res.status(500).json({message: 'Error getting last movements'})
+      }else{
+         res.status(200).json(rows)
+      }
+   });
 });
 
-/*GET item */
-router.get('/api/:input_id', function(req,res, next){
-      const {input_id} = req.params;
-      con.query('SELECT * FROM inputs WHERE input_id = ?', [input_id], (err, rows, fields)=>{
-          if(err){
-             console.log('Error getting item');
-          }else{
-             res.json(rows);
-          }
-      });
+router.get('/:id', function(req,res, next){
+   const {id} = req.params;
+   con.query('SELECT * FROM inputs WHERE id = ?', [id], (err, rows, fields)=>{
+      if (err){
+         console.log(err);
+         res.status(500).json({message: 'Error getting movement'})
+      }else{
+         if(rows.length == 0){
+            res.status(404).json({message: 'Movement does not exist'})
+         }else{
+            res.status(200).json(rows)
+         }
+      }
+   });
 });
 
-/*Delete item*/
-router.delete('/api/:input_id', (req,res)=>{
-      const {input_id} = req.params;
-      con.query('DELETE FROM inputs WHERE input_id = ?', [input_id], (err, rows, fields)=>{
-          if(err){
-             console.log('Error deleting item');
-          }else{
-             res.send(200);
-          }
-      });
+router.delete('/:id', (req,res)=>{
+   const {id} = req.params;
+   con.query('DELETE FROM inputs WHERE id = ?', [id], (err, rows, fields)=>{
+      if (err){
+         res.status(500).json({message: 'Error deleting movement'})
+      }else{
+         if(rows.affectedRows == 1){
+            res.status(200).json({message: 'Post successfully deleted'})
+         }else{
+            res.status(404).json({message: 'Post does not exist'})
+         }
+      }
+   });
 });
 
-/*Edit item */
-router.put('/api/:input_id', (req, res) => {
-    const {input_id} = req.params;
-   const concept = req.body.concept;
-    const amount = req.body.amount;
-    const input_date = req.body.input_date;
-    //const input_type = req.body.input_type;
-    con.query('UPDATE inputs SET concept=?,amount=?,input_date=? WHERE input_id = ?', [concept, amount, input_date, input_id], (err, result) => {
-          if(err){
-             console.log('Error editing item');
-          }else{
-             res.send(200);
-          }
-    });
+router.put('/:id', (req, res) => {
+   const {id} = req.params;
+   const data = {
+      concept: req.body.concept,
+      amount: req.body.amount,
+      input_date: req.body.input_date
+   }
+   con.query('UPDATE inputs SET concept=?,amount=?,input_date=? WHERE id = ?', [data.concept, data.amount, data.input_date, id], (err, rows, result) => {
+      if (err){
+         res.status(500).json({message: 'Error updating movement'})
+      }else{
+         if(rows.affectedRows == 1){
+            res.status(200).json({message: 'Post successfully updated'})
+         }else{
+            res.status(404).json({message: 'Post does not exist'})
+         }
+      }
+   });
 });
 
-/*GET type */
-router.get('/api/filter/:input_type', function(req,res, next){
-      const {input_type} = req.params;
-         if (input_type == "All"){
-                  con.query('SELECT * FROM inputs ORDER BY input_id DESC', function(err, rows, fields){
-            if(err){
-               console.log('Error getting all movements');
+router.get('/filter/:input_type', function(req,res, next){
+   const {input_type} = req.params;
+      if (input_type == "All"){
+         con.query('SELECT * FROM inputs ORDER BY id DESC', function(err, rows, fields){
+            if (err){
+               res.satus(500).json({message: 'Error getting all movements'})
             }else{
                res.json(rows);
             }
          });
       }else{
-         con.query('SELECT * FROM inputs WHERE input_type=? ORDER BY input_id DESC', [input_type], function(err, rows, fields){
-          if(err){
-             console.log('Error getting type of movement');
-          }else{
-             res.json(rows);
-          }
-      });
+         con.query('SELECT * FROM inputs WHERE input_type=? ORDER BY id DESC', [input_type], function(err, rows, fields){
+            if (err){
+               res.status(500).json({message: 'Error getting type of movement'})
+            }else{
+               res.json(rows);
+            }
+         });
       }
 });
 
-/*GET sub-type */
-router.get('/api/filter/subfilter/:type_expense', function(req,res, next){
+router.get('/filter/Expense/:type_expense', function(req,res, next){
       const {type_expense} = req.params;
-         if (type_expense == "All_expenses"){
-                  con.query('SELECT * FROM inputs WHERE input_type="Expense" ORDER BY input_id DESC', function(err, rows, fields){
-            if(err){
-               console.log('Error getting expense movements');
-            }else{
-               res.json(rows);
-            }
+         if (type_expense == "All"){
+            con.query('SELECT * FROM inputs WHERE input_type="Expense" ORDER BY id DESC', function(err, rows, fields){
+               if (err){
+                  console.log(err);
+                  res.status(500).json({message: 'Error getting expense movements'});
+               }else{
+                  res.json(rows);
+               }
+            });
+         }else{
+            con.query('SELECT * FROM inputs WHERE type_expense=? ORDER BY id DESC', [type_expense], function(err, rows, fields){
+               if (err){
+                  console.log(err);
+                  res.status(500).json({message: 'Error getting type of expense'});
+               }else{
+                  res.json(rows);
+               }
          });
-      }else{
-         con.query('SELECT * FROM inputs WHERE type_expense=? ORDER BY input_id DESC', [type_expense], function(err, rows, fields){
-          if(err){
-             console.log('Error getting type of expense');
-          }else{
-             res.json(rows);
-          }
-      });
       }
 });
-
-
-/*----------------------------------- FORM PAGE ---------------------------*/
-/* POST form */
-router.post('/api/import/', (req,res,next)=>{
-    const concept = req.body.concept;
-    const amount = req.body.amount;
-    const input_date = req.body.input_date;
-    const input_type = req.body.input_type;
-    const type_expense = req.body.type_expense;
-    var sql = "INSERT INTO inputs(concept,amount,input_date, input_type, type_expense) VALUES (?,?,?,?,?)";
-    con.query(sql, [concept, amount, input_date, input_type, type_expense], (err, result)=>{
-        if (err) throw err;
-        console.log("1 entry added");
-         res.send(200);
-    });
-});
-
 
 module.exports=router;
