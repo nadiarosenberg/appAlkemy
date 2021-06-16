@@ -1,6 +1,7 @@
 import {Link} from 'react-router-dom';
 import React, {Component} from 'react';
 import SideBar from '../Components/SideBar';
+import Header from '../Components/Header';
 import Axios from 'axios';
 
 class Home extends Component {
@@ -14,7 +15,7 @@ class Home extends Component {
 
     componentDidMount() {
         //get list
-        fetch('/movements/api/list/')
+        fetch('/movements/list/')
         .then(res => res.json())
         .then(data => {
           console.log(data);
@@ -25,12 +26,11 @@ class Home extends Component {
         .catch(console.log)
 
         //get balance
-        Axios.get('/movements/api/balance/').then((response)=>{
+        Axios.get('/movements/balance/').then((response)=>{
             this.setState({
                 balance: response.data.balance })
         })
     }
-
 
     render() {
         function Value_type_expense(data){
@@ -59,61 +59,61 @@ class Home extends Component {
             <SideBar/>
             {/* Page Content */}
             <div className="content">
-                            <div className="user_barr"><i className="icon ion-md-person lead"></i>  Usuario</div>
-                            <div className="justify-content-center" id="welcome">
-                                <h2 className = "welcome_message">Bienvenida/o!</h2>
-                                {/* Balance */}
-                                <div className="div_balance">
-                                        <h2>Balance</h2>
-                                        <h2 className="number_balance">${this.state.balance}</h2>
-                                </div>
+                <Header />
+                <div className="justify-content-center" id="welcome">
+                    <h2 className = "welcome_message">Bienvenida/o!</h2>
+                    {/* Balance */}
+                    <div className="div_balance">
+                            <h2>Balance</h2>
+                            <h2 className="number_balance">${this.state.balance}</h2>
+                    </div>
+                </div>
+                    {/* Last 10 movements */}
+                    <div clasName = "tablediv">
+                        <h2 className="h2_title">Ultimos movimientos</h2>
+                            <div className="row justify-content-center">     
+                            <div className="col-8">
+                                <table id="table" className="table table-borderless table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Fecha</th>
+                                            <th scope="col">Concepto</th>
+                                            <th scope="col"></th>
+                                            <th scope="col">Valor</th>
+                                            <th scope="col">Tipo</th>
+                                            <th scope="col">Tipo de gasto:</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {this.state.movementsList.map((aMovement) => (
+                                    <tr>  
+                                            <td>
+                                                {aMovement.input_date.split("T")[0].split('-').reverse().join('/')}
+                                            </td>
+                                            <td>
+                                                {aMovement.concept}
+                                            </td>
+                                            <td>
+                                                {aMovement.input_type=="Expense"?"-":"+"}
+                                            </td>
+                                            <td>
+                                                ${aMovement.amount}
+                                            </td>
+                                            <td>
+                                                {aMovement.input_type=="Income"?"Ingreso":"Gasto"}
+                                            </td>
+                                            <td>
+                                                {Value_type_expense(aMovement.type_expense)}
+                                            </td>
+                                    </tr>
+                                            )
+                                        )
+                                    }
+                                    </tbody>
+                                    </table>
                             </div>
-                                {/* Last 10 movements */}
-                                <div clasName = "tablediv">
-                                    <h2 className="h2_title">Ultimos movimientos</h2>
-                                        <div className="row justify-content-center">     
-                                        <div className="col-8">
-                                            <table id="table" className="table table-borderless table table-hover">
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col">Fecha</th>
-                                                        <th scope="col">Concepto</th>
-                                                        <th scope="col"></th>
-                                                        <th scope="col">Valor</th>
-                                                        <th scope="col">Tipo</th>
-                                                        <th scope="col">Tipo de gasto:</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                {this.state.movementsList.map((aMovement) => (
-                                                <tr>  
-                                                        <td>
-                                                            {aMovement.input_date.split("T")[0].split('-').reverse().join('/')}
-                                                        </td>
-                                                        <td>
-                                                            {aMovement.concept}
-                                                        </td>
-                                                        <td>
-                                                            {aMovement.input_type=="Expense"?"-":"+"}
-                                                        </td>
-                                                        <td>
-                                                            ${aMovement.amount}
-                                                        </td>
-                                                        <td>
-                                                            {aMovement.input_type=="Income"?"Ingreso":"Gasto"}
-                                                        </td>
-                                                        <td>
-                                                            {Value_type_expense(aMovement.type_expense)}
-                                                        </td>
-                                                </tr>
-                                                        )
-                                                    )
-                                                }
-                                                </tbody>
-                                                </table>
-                                        </div>
-                                        </div>
-                                </div>
+                            </div>
+                        </div>
             </div>
         </div>)
 }}

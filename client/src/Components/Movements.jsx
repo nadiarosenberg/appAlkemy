@@ -1,6 +1,7 @@
 import {Link} from 'react-router-dom';
 import React, {Component} from 'react';
 import SideBar from '../Components/SideBar';
+import Header from '../Components/Header';
 
 class Movements extends Component {
     constructor() {
@@ -11,10 +12,9 @@ class Movements extends Component {
             type_expense:'All'
         }
     }
-
     //Filter by type of operation
     fetchMovements(){
-        fetch(`/movements/api/filter/${this.state.input_type}`)
+        fetch(`/movements/filter/${this.state.input_type}`)
         .then(res => res.json())
         .then(data => {
           console.log(data);
@@ -27,10 +27,9 @@ class Movements extends Component {
     componentDidMount() {
         this.fetchMovements();
     }
-
     //Filter by type of expense
     fetchTypeExpense(){
-        fetch(`/movements/api/filter/subfilter/${this.state.type_expense}`)
+        fetch(`/movements/filter/subfilter/${this.state.type_expense}`)
         .then(res => res.json())
         .then(data => {
           console.log(data);
@@ -77,13 +76,10 @@ class Movements extends Component {
         return (
             <div className= "w-100">
             <SideBar/>
-            {/* Page Content */}
             <div className="content">
-                <div className="user_barr"><i className="icon ion-md-person lead"></i>  Usuario</div>
-                
+                <Header/>
                 {/* All movements */}
                 <h2 className ="h2_movements">Movimientos</h2>
-
                 {/* Order by type */}
                 <div className="container">
                     <div className="row justify-content-center">
@@ -161,8 +157,8 @@ class Movements extends Component {
                                     <td>
                                     {/* Delete item */}
                                         <button type="image" src="client\src\images\trash-outline.svg" className="btn btn-primary btn-block" id="button_movements" onClick={()=>{
-                                            fetch(`/movements/api/${aMovement.id}`,{method:'DELETE'}).then(()=>{
-                                                fetch('/movements/api').then((result)=>result.json()).then((json)=>{
+                                            fetch(`/movements/${aMovement.id}`,{method:'DELETE'}).then(()=>{
+                                                fetch('/movements').then((result)=>result.json()).then((json)=>{
                                                     console.log({json});
                                                     this.setState({...this.state,movementsList:json}); //mantiene lo que habia en estado y actualiza la lista con lo que elimine
                                                     }).catch(console.log);

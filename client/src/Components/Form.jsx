@@ -1,6 +1,7 @@
 import {Link} from 'react-router-dom';
 import React, {useState, useEffect} from 'react';
 import SideBar from '../Components/SideBar';
+import Header from '../Components/Header';
 import Axios from 'axios';
 import {useParams, useHistory} from 'react-router';
 
@@ -17,18 +18,16 @@ function Form(){
     const history = useHistory(); 
     useEffect(()=>{
         if (id && id.length){
-            Axios.get(`/movements/api/${id}`).then((response)=>{
-                    console.log(response);
-                    if (response.data.length){
-                        const [value] = response.data; 
-                        setConcept(value.concept);
-                        setAmount(value.amount);
-                        setInput_date(value.input_date.split("T")[0]);
-                        setInput_type(value.input_type);
-                        setType_expense(value.type_expense);
-                    }
-            }
-            )
+            Axios.get(`/movements/${id}`).then((response)=>{
+                if (response.data.length){
+                    const [value] = response.data; 
+                    setConcept(value.concept);
+                    setAmount(value.amount);
+                    setInput_date(value.input_date.split("T")[0]);
+                    setInput_type(value.input_type);
+                    setType_expense(value.type_expense);
+                }
+            })
         }
     },[id])
 
@@ -36,7 +35,7 @@ function Form(){
     const submitForm = (e)=>{
         e.preventDefault(); //no refresh
         if (id){
-            Axios.put(`/movements/api/${id}`,{
+            Axios.put(`/movements/${id}`,{
                 concept: concept,
                 amount: amount,
                 input_date: input_date,
@@ -45,10 +44,10 @@ function Form(){
                 }).then(()=>{
                     alert('Movimiento modificado');
                     //redirect
-                    history.push('/movements/');
+                    history.push('/movements');
                 }).catch(e=>console.log(e))
         }else{
-            Axios.post('/movements/api/import/',{
+            Axios.post('/movements',{
                 concept: concept,
                 amount: amount,
                 input_date: input_date,
@@ -70,8 +69,7 @@ function Form(){
             <SideBar />
             {/* Page Content */}
             <div className="content">
-                <div className="user_barr"><i className="icon ion-md-person lead"></i>  Usuario</div>
-
+                <Header />
                 {/* Form */}
                 <div className="container">
                 <div className="row justify-content-center">
